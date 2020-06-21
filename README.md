@@ -1,2 +1,3 @@
 # UnrealEngineSkyAtmosphere
-TODO
+Repository associated with the EGSR 2020 paper "A Scalable and Production Ready Sky and Atmosphere Rendering Technique"
+Coming soon! After the conference...
