@@ -325,21 +325,6 @@ void lightGenerateSample(inout PathTracingContext ptc, out float3 direction, out
 }
 
 
-float getShadow(in AtmosphereParameters Atmosphere, float3 P)
-{
-	// First evaluate opaque shadow
-	float4 shadowUv = mul(gShadowmapViewProjMat, float4(P + float3(0.0, 0.0, -Atmosphere.BottomRadius), 1.0));
-	//shadowUv /= shadowUv.w;	// not be needed as it is an ortho projection
-	shadowUv.x = shadowUv.x*0.5 + 0.5;
-	shadowUv.y = -shadowUv.y*0.5 + 0.5;
-	if (all(shadowUv.xyz >= 0.0) && all(shadowUv.xyz < 1.0))
-	{
-		return ShadowmapTexture.SampleCmpLevelZero(samplerShadow, shadowUv.xy, shadowUv.z);
-	}
-	return 1.0f;
-}
-
-
 
 ////////////////////////////////////////////////////////////
 // Integrators
