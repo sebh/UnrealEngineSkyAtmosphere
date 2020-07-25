@@ -6,7 +6,7 @@ The path tracer is using a simple and less efficient noise because I was not sur
 The technique is used to render sky and atmosphere in [Unreal Engine](https://www.unrealengine.com).
 
 Build the solution
-1. Update git submodules (run `git submodule update`)
+1. Update git submodules (run `git submodule update --init`)
 2. Open the solution 
 3. Make sure you select a windows SDK and platform toolset you have locally for both projects
 4. In Visual Studio, change the _Application_ project _Working Directory_ from `$(ProjectDir)` to `$(SolutionDir)`
