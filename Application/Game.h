@@ -277,9 +277,9 @@ private:
 		ShadowmapCount
 	};
 	enum {
-		DualScatteringDisabled = 0,
-		DualScatteringEnabled,
-		DualScatteringCount
+		MultiScatApproxDisabled = 0,
+		MultiScatApproxEnabled,
+		MultiScatApproxCount
 	};
 	enum {
 		ColoredTransmittanceDisabled = 0,
@@ -296,8 +296,8 @@ private:
 		FastAerialPerspectiveEnabled,
 		FastAerialPerspectiveCount
 	};
-	PixelShader* RenderPathTracingPS[TransmittanceMethodCount][GroundGlobalIlluminationCount][ShadowmapCount][DualScatteringCount];
-	PixelShader* RenderRayMarchingPS[DualScatteringCount][FastSkyCount][ColoredTransmittanceCount][FastAerialPerspectiveCount][ShadowmapCount];
+	PixelShader* RenderPathTracingPS[TransmittanceMethodCount][GroundGlobalIlluminationCount][ShadowmapCount][MultiScatApproxCount];
+	PixelShader* RenderRayMarchingPS[MultiScatApproxCount][FastSkyCount][ColoredTransmittanceCount][FastAerialPerspectiveCount][ShadowmapCount];
 	int currentTransPermutation = TransmittanceMethodLUT;
 	bool currentShadowPermutation = false;
 	float currentMultipleScatteringFactor = 1.0f;
@@ -311,8 +311,8 @@ private:
 	Texture2D* MultiScattStep0Tex;
 	Texture2D* mSkyViewLutTex;
 	PixelShader* RenderTransmittanceLutPS;
-	PixelShader* SkyViewLutPS[DualScatteringCount];
-	PixelShader* CameraVolumesRayMarchPS[DualScatteringCount];
+	PixelShader* SkyViewLutPS[MultiScatApproxCount];
+	PixelShader* CameraVolumesRayMarchPS[MultiScatApproxCount];
 	ComputeShader*  NewMuliScattLutCS;
 
 	// UI

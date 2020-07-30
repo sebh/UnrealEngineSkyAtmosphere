@@ -798,7 +798,7 @@ float LightIntegratorInner(
 				lightGenerateSample(ptc, sampleDirection, lightL, lightPdf, beamTransmittance, isDeltaLight);
 				phaseEvaluateSample(ptc, sampleDirection, ScatteringType, bsdfL, bsdfPdf);
 
-#if DUALSCATTERING_ENABLED
+#if MULTISCATAPPROX_ENABLED
 				// Trying some approximation to multi scattering
 				const float globalL = transmittance * weight * (lightL) / (lightPdf); // We do not apply beamTransmittance here because otherwise no multi scatter in shadowed region. But now strong forward mie scattering can leak through opaque.
 

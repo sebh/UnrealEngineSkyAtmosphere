@@ -88,7 +88,7 @@ void Game::loadShaders(bool firstTimeLoadShaders)
 	success &= reload(&RenderWithLutPS, L"Resources\\RenderWithLuts.hlsl", "RenderWithLutsPS", firstTimeLoadShaders, nullptr, lazyCompilation);	
 	success &= reload(&RenderTransmittanceLutPS, L"Resources\\RenderSkyRayMarching.hlsl", "RenderTransmittanceLutPS", firstTimeLoadShaders, nullptr, lazyCompilation);
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		Macros macros;
 		ShaderMacro macroDs = { "MULTISCATAPPROX_ENABLED", GetStringNumber(ds) };
@@ -105,7 +105,7 @@ void Game::loadShaders(bool firstTimeLoadShaders)
 		{
 			for (int sm = ShadowmapDisabled; sm < ShadowmapCount; ++sm)
 			{
-				for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+				for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 				{
 					Macros macros;
 					ShaderMacro macroTrans = { "TRANSMITANCE_METHOD", GetStringNumber(trans) };
@@ -122,7 +122,7 @@ void Game::loadShaders(bool firstTimeLoadShaders)
 		}
 	}
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		for (int fs = FastSkyDisabled; fs < FastSkyCount; ++fs)
 		{
@@ -153,7 +153,7 @@ void Game::loadShaders(bool firstTimeLoadShaders)
 		}
 	}
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		Macros macros;
 		ShaderMacro macroDs = { "MULTISCATAPPROX_ENABLED", GetStringNumber(ds) };
@@ -193,7 +193,7 @@ void Game::releaseShaders()
 	resetPtr(&RenderWithLutPS);
 	resetPtr(&RenderTransmittanceLutPS);
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		resetPtr(&SkyViewLutPS[ds]);
 	}
@@ -207,7 +207,7 @@ void Game::releaseShaders()
 		{
 			for (int sm = ShadowmapDisabled; sm < ShadowmapCount; ++sm)
 			{
-				for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+				for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 				{
 					resetPtr(&RenderPathTracingPS[trans][ggi][sm][ds]);
 				}
@@ -215,7 +215,7 @@ void Game::releaseShaders()
 		}
 	}
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		for (int fs = FastSkyDisabled; fs < FastSkyCount; ++fs)
 		{
@@ -232,7 +232,7 @@ void Game::releaseShaders()
 		}
 	}
 
-	for (int ds = DualScatteringDisabled; ds < DualScatteringCount; ++ds)
+	for (int ds = MultiScatApproxDisabled; ds < MultiScatApproxCount; ++ds)
 	{
 		resetPtr(&CameraVolumesRayMarchPS[ds]);
 	}
