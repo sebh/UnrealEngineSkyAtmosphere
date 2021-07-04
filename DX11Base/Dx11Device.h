@@ -8,6 +8,7 @@
 
 // Windows and Dx11 includes
 #include <map>
+#include <string>
 #include <vector>
 #include <windows.h>
 #include <windowsx.h>
