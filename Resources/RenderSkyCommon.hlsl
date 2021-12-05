@@ -61,6 +61,7 @@ RWTexture2D<float4>  OutputTexture1						: register(u1);
 #define USE_CornetteShanks
 #define MIE_PHASE_IMPORTANCE_SAMPLING 0
 #else
+// Beware: untested, probably faulty code path.
 // Mie importance sampling is only used for multiple scattering. Single scattering is fine and noise only due to sample selection on view ray.
 // A bit more expenssive so off for now.
 #define MIE_PHASE_IMPORTANCE_SAMPLING 1
