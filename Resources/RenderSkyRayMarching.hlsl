@@ -454,7 +454,8 @@ void NewMultiScattCS(uint3 ThreadId : SV_DispatchThreadID)
 		float randA = i / sqrtSample;
 		float randB = j / sqrtSample;
 		float theta = 2.0f * PI * randA;
-		float phi = PI * randB;
+		float phi = acos(1.0f - 2.0f * randB);	// uniform distribution https://mathworld.wolfram.com/SpherePointPicking.html
+		//phi = PI * randB;						// bad non uniform
 		float cosPhi = cos(phi);
 		float sinPhi = sin(phi);
 		float cosTheta = cos(theta);
