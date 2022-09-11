@@ -61,6 +61,8 @@ cbuffer SKYATMOSPHERE_BUFFER : register(b1)
 	//
 	float4x4 gSkyViewProjMat;
 	float4x4 gSkyInvViewProjMat;
+	float4x4 gSkyInvProjMat;
+	float4x4 gSkyInvViewMat;
 	float4x4 gShadowmapViewProjMat;
 
 	float3 camera;

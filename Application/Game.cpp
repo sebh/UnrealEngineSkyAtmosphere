@@ -636,9 +636,9 @@ void Game::update(const WindowInputData& inputData)
 		FXMVECTOR focusPosition = XMLoadFloat3(&focusPosition2);
 		FXMVECTOR upDirection = { 0.0f, 0.0f, 1.0f, 0.0f };	// Unreal z-up
 
-		XMMATRIX viewMatrix = XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
-		XMMATRIX projMatrix = XMMatrixPerspectiveFovLH(66.6f*3.14159f / 180.0f, aspectRatioXOverY, 0.1f, 20000.0f);
-		mViewProjMat = XMMatrixMultiply(viewMatrix, projMatrix);
+		mViewMat = XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
+		mProjMat = XMMatrixPerspectiveFovLH(66.6f*3.14159f / 180.0f, aspectRatioXOverY, 0.1f, 20000.0f);
+		mViewProjMat = XMMatrixMultiply(mViewMat, mProjMat);
 	}
 
 	XMMATRIX sunMatrix = XMMatrixRotationRollPitchYaw(-uiSunPitch, uiSunYaw, 0.0f);
@@ -726,8 +726,19 @@ void Game::updateSkyAtmosphereConstant()
 
 		//
 		cb.gSkyViewProjMat = mViewProjMat;
-		XMVECTOR mViewProjMatDet = XMMatrixDeterminant(mViewProjMat);
-		cb.gSkyInvViewProjMat = XMMatrixInverse(&mViewProjMatDet, mViewProjMat);
+		{
+			XMVECTOR mViewProjMatDet = XMMatrixDeterminant(mViewProjMat);
+			cb.gSkyInvViewProjMat = XMMatrixInverse(&mViewProjMatDet, mViewProjMat);
+		}
+		{
+			XMVECTOR mProjMatDet = XMMatrixDeterminant(mProjMat);
+			cb.gSkyInvProjMat = XMMatrixInverse(&mProjMatDet, mProjMat);
+		}
+		{
+			XMVECTOR mViewMatDet = XMMatrixDeterminant(mViewMat);
+			cb.gSkyInvViewMat = XMMatrixInverse(&mViewMatDet, mViewMat);
+		}
+
 
 		cb.gShadowmapViewProjMat = mShadowmapViewProjMat;
 

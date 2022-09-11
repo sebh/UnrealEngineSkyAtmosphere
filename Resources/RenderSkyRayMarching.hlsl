@@ -298,9 +298,8 @@ RayMarchPixelOutputStruct RenderRayMarchingPS(VertexOutput Input)
 	AtmosphereParameters Atmosphere = GetAtmosphereParameters();
 
 	float3 ClipSpace = float3((pixPos / float2(gResolution))*float2(2.0, -2.0) - float2(1.0, -1.0), 1.0);
-	float4 HPos = mul(gSkyInvViewProjMat, float4(ClipSpace, 1.0));
-
-	float3 WorldDir = normalize(HPos.xyz / HPos.w - camera);
+	float4 HViewPos = mul(gSkyInvProjMat, float4(ClipSpace, 1.0));
+	float3 WorldDir = normalize(mul((float3x3)gSkyInvViewMat, HViewPos.xyz / HViewPos.w));
 	float3 WorldPos = camera + float3(0, 0, Atmosphere.BottomRadius);
 
 	float DepthBufferValue = -1.0;
@@ -585,11 +584,9 @@ float4 SkyViewLutPS(VertexOutput Input) : SV_TARGET
 	AtmosphereParameters Atmosphere = GetAtmosphereParameters();
 
 	float3 ClipSpace = float3((pixPos / float2(192.0,108.0))*float2(2.0, -2.0) - float2(1.0, -1.0), 1.0);
-	float4 HPos = mul(gSkyInvViewProjMat, float4(ClipSpace, 1.0));
-
-	float3 WorldDir = normalize(HPos.xyz / HPos.w - camera);
+	float4 HViewPos = mul(gSkyInvProjMat, float4(ClipSpace, 1.0));
+	float3 WorldDir = normalize(mul((float3x3)gSkyInvViewMat, HViewPos.xyz / HViewPos.w));
 	float3 WorldPos = camera + float3(0, 0, Atmosphere.BottomRadius);
-
 
 	float2 uv = pixPos / float2(192.0, 108.0);
 
@@ -651,8 +648,9 @@ float4 RenderCameraVolumePS(GeometryOutput Input) : SV_TARGET0
 	AtmosphereParameters Atmosphere = GetAtmosphereParameters();
 
 	float3 ClipSpace = float3((pixPos / float2(gResolution))*float2(2.0, -2.0) - float2(1.0, -1.0), 0.5);
-	float4 HPos = mul(gSkyInvViewProjMat, float4(ClipSpace, 1.0));
-	float3 WorldDir = normalize(HPos.xyz / HPos.w - camera);
+	float4 HViewPos = mul(gSkyInvProjMat, float4(ClipSpace, 1.0));
+	float3 WorldDir = normalize(mul((float3x3)gSkyInvViewMat, HViewPos.xyz / HViewPos.w));
+
 	float earthR = Atmosphere.BottomRadius;
 	float3 earthO = float3(0.0, 0.0, -earthR);
 	float3 camPos = camera + float3(0, 0, earthR);

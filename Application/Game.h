@@ -190,6 +190,8 @@ private:
 		//
 		float4x4 gSkyViewProjMat;
 		float4x4 gSkyInvViewProjMat;
+		float4x4 gSkyInvProjMat;
+		float4x4 gSkyInvViewMat;
 		float4x4 gShadowmapViewProjMat;
 
 		float3 camera;
@@ -247,6 +249,8 @@ private:
 	const uint32 ShadowmapSize = 4096;
 	float4x4 mShadowmapViewProjMat;
 
+	float4x4 mViewMat;
+	float4x4 mProjMat;
 	float4x4 mViewProjMat;
 	float3   mCamPos;
 	float3   mCamPosFinal;
